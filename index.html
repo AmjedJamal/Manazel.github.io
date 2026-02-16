@@ -1,0 +1,275 @@
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+/><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>نموذج شركة منازل للصيانة</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        direction: rtl;
+        background-color: rgb(230, 230, 230);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: auto;
+      }
+
+      label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #777;
+      }
+
+      .btn {
+        background: #0077cc;
+        color: white;
+        padding: 12px 20px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .btn:hover {
+        background: #005fa3;
+      }
+
+      /* تنسيق الصفحة النهائية */
+      .header {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .logo {
+        width: 120px;
+      }
+
+      .company-name {
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      .fixed-subtitle {
+        font-size: 16px;
+        margin-top: 5px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+      table th,
+      table td {
+        border: 1px solid #555;
+        padding: 8px;
+        text-align: center;
+      }
+
+      .box {
+        border: 1px solid #444;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+      }
+
+      .section-title {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- ------------------   صفحة إدخال البيانات   ------------------ -->
+      <div id="formPage">
+        <h2>مرحبا / عبد العزيز _ ادخل بيانت البطاقة :</h2>
+
+        <label>اسم الشخص:</label>
+        <input id="personName" />
+
+        <label>الموضوع:</label>
+        <input id="subject" />
+
+        <label>موقع المشروع:</label>
+        <input id="projectLocation" />
+
+        <label>تاريخ الإصدار:</label>
+        <input type="date" id="issueDate" />
+
+        <label>تاريخ بداية العمل:</label>
+        <input type="date" id="startDate" />
+
+        <label>تاريخ نهاية العمل:</label>
+        <input type="date" id="endDate" />
+
+        <label>المدة المتوقعة:</label>
+        <input id="duration" />
+
+        <label>رقم المشروع:</label>
+        <input id="projectNumber" />
+
+        <label>عدد العمال:</label>
+        <input id="workers" />
+
+        <label>عدد الفنيين:</label>
+        <input id="techs" />
+
+        <label>عدد المشرفين:</label>
+        <input id="managers" />
+
+        <label>أرقام التواصل:</label>
+        <input id="phones" />
+
+        <label
+          >المواد والكميات (اكتب كل مادة في سطر: الاسم | الكمية | المدة |
+          ملاحظات):</label
+        >
+        <textarea id="materials" rows="6"></textarea>
+
+        <button class="btn" onclick="showResult()">NEXT</button>
+      </div>
+
+      <!-- ------------------   صفحة عرض البيانات النهائية   ------------------ -->
+      <div id="resultPage" class="hidden">
+        <div class="header">
+          <img src="11.png" class="logo" >
+          <div class="company-name">شركة منازل للصيانة</div>
+          <div class="fixed-subtitle">
+            شركة منازل للصيانة: حلول مهنية عالية الجودة
+          </div>
+        </div>
+
+        <p>السلام عليكم ورحمة الله وبركاته،</p>
+
+        <p>
+          سعادة العميل /
+          <span id="out_personName" style="font-weight: bold"></span>
+        </p>
+
+        <p>
+          الموضوع:
+          <span id="out_subject" style="font-weight: bold"></span>
+        </p>
+
+        <hr />
+
+        <div class="section-title">بيانات المشروع:</div>
+
+        <div class="box">
+          <p>موقع المشروع: <strong id="out_projectLocation"></strong></p>
+          <p>تاريخ الإصدار: <strong id="out_issueDate"></strong></p>
+          <p>تاريخ بداية العمل: <strong id="out_startDate"></strong></p>
+          <p>تاريخ نهاية العمل: <strong id="out_endDate"></strong></p>
+          <p>المدة المتوقعة: <strong id="out_duration"></strong></p>
+          <p>رقم المشروع: <strong id="out_projectNumber"></strong></p>
+        </div>
+
+        <div class="section-title">بيانات العمال:</div>
+
+        <div class="box">
+          <p>عدد العمال: <strong id="out_workers"></strong></p>
+          <p>عدد الفنيين: <strong id="out_techs"></strong></p>
+          <p>عدد المشرفين: <strong id="out_managers"></strong></p>
+          <p>أرقام التواصل: <strong id="out_phones"></strong></p>
+        </div>
+
+        <div class="section-title">جدول المواد والكميات:</div>
+
+        <table id="materialsTable">
+          <thead>
+            <tr>
+              <th>اسم المادة</th>
+              <th>الكمية</th>
+              <th>المدة</th>
+              <th>ملاحظات</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <p style="margin-top: 40px; font-weight: bold">
+          وتفضلوا بقبول فائق الاحترام والتقدير…
+          <br />
+          شركة منازل للصيانة
+        </p>
+      </div>
+    </div>
+
+    <!-- ------------------   JavaScript   ------------------ -->
+    <script>
+      function showResult() {
+        // إخفاء الفورم
+        document.getElementById("formPage").classList.add("hidden");
+        // إظهار صفحة النتائج
+        document.getElementById("resultPage").classList.remove("hidden");
+
+        // نسخ القيم من الفورم إلى أماكنها
+        const fields = [
+          "personName",
+          "subject",
+          "projectLocation",
+          "issueDate",
+          "startDate",
+          "endDate",
+          "duration",
+          "projectNumber",
+          "workers",
+          "techs",
+          "managers",
+          "phones",
+        ];
+
+        fields.forEach((id) => {
+          document.getElementById(
+            "out_" + id
+          ).textContent = document.getElementById(id).value;
+        });
+
+        // معالجة جدول المواد
+        const materialsText = document.getElementById("materials").value.trim();
+        const rows = materialsText.split("\n");
+
+        const tbody = document.querySelector("#materialsTable tbody");
+        tbody.innerHTML = "";
+
+        rows.forEach((line) => {
+          const parts = line.split("|").map((s) => s.trim());
+          if (parts.length >= 4) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${parts[0]}</td>
+                <td>${parts[1]}</td>
+                <td>${parts[2]}</td>
+                <td>${parts[3]}</td>
+            `;
+            tbody.appendChild(tr);
+          }
+        });
+      }
+    </script>
+
+  </body>
+</html>
