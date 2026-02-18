@@ -1,1 +1,0 @@
-# Manazel.github.io
